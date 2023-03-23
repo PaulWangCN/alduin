@@ -57,8 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
         }),
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: '主页'
+              icon: Icon(Icons.newspaper),
+              label: '知乎'
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
