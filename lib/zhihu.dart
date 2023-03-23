@@ -1,18 +1,17 @@
-import 'package:alduin/alduin_title.dart';
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:dio/dio.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class ZhihuHot extends StatefulWidget {
+  const ZhihuHot({super.key});
 
   @override
-  State<StatefulWidget> createState() => _Home();
+  State<StatefulWidget> createState() => _ZhihuHot();
 }
 
-class _Home extends State<Home> {
-  final List<AlduinTitle> _list = [];
+class _ZhihuHot extends State<ZhihuHot> {
+  final List<ZhihuHotTitle> _list = [];
   bool _loading = false;
 
   @override
@@ -28,13 +27,14 @@ class _Home extends State<Home> {
     dom.Document document = parser.parse(response.data);
     List<dom.Element> elementsByClassName =
         document.getElementsByClassName('HotList-item');
-    List<AlduinTitle> list = [];
+    List<ZhihuHotTitle> list = [];
     for (dom.Element element in elementsByClassName) {
       String title =
           element.getElementsByClassName('HotList-itemTitle')[0].text.trim();
       String subtitle =
           element.getElementsByClassName('HotList-itemMetrics')[0].text.trim();
-      AlduinTitle alduinTitle = AlduinTitle(title: title, subtitle: subtitle);
+      ZhihuHotTitle alduinTitle =
+          ZhihuHotTitle(title: title, subtitle: subtitle);
       list.add(alduinTitle);
     }
     setState(() {
@@ -83,7 +83,10 @@ class _Home extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('知乎最热', style: TextStyle(),),
+        title: const Text(
+          '知乎最热',
+          style: TextStyle(),
+        ),
       ),
       body: _childLayout(),
       floatingActionButton: FloatingActionButton(
@@ -93,4 +96,14 @@ class _Home extends State<Home> {
       ),
     );
   }
+}
+
+class ZhihuHotTitle {
+  final String title;
+  final String subtitle;
+
+  ZhihuHotTitle({
+    required this.title,
+    required this.subtitle,
+  });
 }

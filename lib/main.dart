@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   currentPage() {
     switch (currentIndex) {
       case 0:
-        return const Home();
+        return const ZhihuHot();
       case 1:
         return const Person();
       default:
