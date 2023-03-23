@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:alduin/home.dart';
+import 'package:alduin/zhihu.dart';
 import 'package:alduin/person.dart';
 
 void main() {
