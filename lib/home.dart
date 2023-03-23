@@ -1,7 +1,6 @@
 import 'package:alduin/alduin_title.dart';
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:dio/dio.dart';
 
@@ -66,7 +65,7 @@ class _Home extends State<Home> {
             return ListTile(
               title: Text(
                 '#$lineNo $title',
-                style: const TextStyle(color: Colors.blue),
+                style: const TextStyle(color: Colors.lightBlue),
               ),
               subtitle: Text(
                 subtitle,
@@ -82,6 +81,10 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('知乎最热', style: TextStyle(),),
+      ),
       body: _childLayout(),
       floatingActionButton: FloatingActionButton(
         onPressed: _getData,
