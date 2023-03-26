@@ -38,9 +38,6 @@ class _DoubanMovie extends State<DoubanMovie> {
           .replaceAll('  ', '')
           .replaceFirst('/', ' /')
           .trim();
-      while (title.contains('  ')) {
-        title.replaceAll('  ', ' ').trim();
-      }
       String subtitle = element.getElementsByClassName('pl')[0].text.split('/')[0].trim();
       DoubanMovieTitle alduinTitle =
           DoubanMovieTitle(title: title, subtitle: subtitle);
