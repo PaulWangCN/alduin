@@ -36,6 +36,7 @@ class _DoubanMovie extends State<DoubanMovie> {
           .text
           .replaceAll('\n', '')
           .replaceAll('  ', '')
+          .replaceFirst('/', ' /')
           .trim();
       while (title.contains('  ')) {
         title.replaceAll('  ', ' ').trim();
