@@ -4,16 +4,16 @@ import 'package:html/parser.dart' as parser;
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
-
-class ZhihuHot extends StatefulWidget {
-  const ZhihuHot({super.key});
+class Github extends StatefulWidget {
+  const Github({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ZhihuHot();
+  State<Github> createState() => _Github();
 }
 
-class _ZhihuHot extends State<ZhihuHot> {
-  final List<ZhihuHotTitle> _list = [];
+class _Github extends State<Github> {
+
+  final List<GithubTrendingTitle> _list = [];
   bool _loading = false;
 
   @override
@@ -24,20 +24,30 @@ class _ZhihuHot extends State<ZhihuHot> {
 
   void _getData() async {
     _loading = true;
-    var url = "https://www.zhihu.com/billboard";
+    var url = "https://github.com/trending";
     Response response = await Dio().get(url);
     dom.Document document = parser.parse(response.data);
     List<dom.Element> elementsByClassName =
-        document.getElementsByClassName('HotList-item');
-    List<ZhihuHotTitle> list = [];
+    document.getElementsByClassName('Box-row');
+    List<GithubTrendingTitle> list = [];
     for (dom.Element element in elementsByClassName) {
-      String title =
-          element.getElementsByClassName('HotList-itemTitle')[0].text.trim();
-      String subtitle =
-          element.getElementsByClassName('HotList-itemMetrics')[0].text.trim();
-      ZhihuHotTitle alduinTitle =
-          ZhihuHotTitle(title: title, subtitle: subtitle);
-      list.add(alduinTitle);
+      dom.Element titleEle =
+      element.getElementsByClassName('h3 lh-condensed')[0];
+      String name = titleEle.text.trim();
+      dom.Element? subtitleEle = titleEle.nextElementSibling;
+      String prefix = name.split('/')[0].trim();
+      String suffix = name.split('/')[1].trim();
+      String title = "$prefix / $suffix";
+      String subtitle = '';
+      if (subtitleEle != null &&
+          subtitleEle.className == 'col-9 color-fg-muted my-1 pr-4') {
+        subtitle = subtitleEle.text.trim();
+      }
+      GithubTrendingTitle trending = GithubTrendingTitle(
+        title: title,
+        subtitle: subtitle,
+      );
+      list.add(trending);
     }
     setState(() {
       _list.clear();
@@ -69,12 +79,9 @@ class _ZhihuHot extends State<ZhihuHot> {
                 '#$lineNo $title',
                 style: const TextStyle(color: Colors.lightBlue),
               ),
-              subtitle: Row(
-                children: <Widget>[
-                  const Icon(Icons.local_fire_department_outlined),
-                  const SizedBox(width: 10),
-                  Text(subtitle, style: const TextStyle(color: Colors.grey)),
-                ],
+              subtitle: Text(
+                subtitle,
+                style: const TextStyle(color: Colors.grey),
               ),
               onLongPress: () {
                 Clipboard.setData(ClipboardData(text: title));
@@ -96,7 +103,7 @@ class _ZhihuHot extends State<ZhihuHot> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          '知乎最热',
+          'github最热',
           style: TextStyle(),
         ),
       ),
@@ -110,12 +117,13 @@ class _ZhihuHot extends State<ZhihuHot> {
   }
 }
 
-class ZhihuHotTitle {
+class GithubTrendingTitle {
   final String title;
   final String subtitle;
 
-  ZhihuHotTitle({
+  GithubTrendingTitle({
     required this.title,
     required this.subtitle,
   });
+
 }

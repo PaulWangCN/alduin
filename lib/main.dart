@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:alduin/zhihu.dart';
 import 'package:alduin/person.dart';
+import 'package:alduin/hot.dart';
 
 void main() {
   runApp(const AlduinApp());
@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   currentPage() {
     switch (currentIndex) {
       case 0:
-        return const ZhihuHot();
+        return const Hot();
       case 1:
         return const Person();
       default:
@@ -57,8 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
         }),
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.newspaper),
-              label: '知乎'
+              icon: Icon(Icons.local_fire_department),
+              label: '最火'
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
