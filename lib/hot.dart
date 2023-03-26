@@ -1,6 +1,7 @@
 import 'package:alduin/github.dart';
 import 'package:flutter/material.dart';
 import 'package:alduin/zhihu.dart';
+import 'package:alduin/douban_movie.dart';
 
 class Hot extends StatefulWidget {
   const Hot({super.key});
@@ -42,6 +43,17 @@ class _HotState extends State<Hot> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Github()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('豆瓣电影'),
+            subtitle: const Text('我们的精神角落。'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DoubanMovie()),
               );
             },
           ),
